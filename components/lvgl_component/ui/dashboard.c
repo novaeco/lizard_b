@@ -1,7 +1,7 @@
 #include "dashboard.h"
-#include "../lvgl_conf.h"
 #include "lvgl.h"
 #include "esp_log.h"
+#include <inttypes.h>
 
 static const char* TAG = "DASHBOARD";
 

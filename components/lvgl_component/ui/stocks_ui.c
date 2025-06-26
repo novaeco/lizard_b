@@ -1,5 +1,4 @@
 #include "stocks_ui.h"
-#include "../lvgl_conf.h"
 #include "lvgl.h"
 #include "esp_log.h"
 
