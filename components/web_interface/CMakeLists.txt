@@ -7,7 +7,6 @@ idf_component_register(
         "web_auth.c"
     INCLUDE_DIRS 
         "include"
-        "web"
     REQUIRES 
         esp_http_server
         esp_https_server
