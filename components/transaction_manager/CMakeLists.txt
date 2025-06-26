@@ -1,0 +1,15 @@
+idf_component_register(
+    SRCS 
+        "transaction_manager.c"
+        "certificate_generator.c"
+        "document_manager.c"
+        "financial_tracker.c"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        nvs_flash
+        json
+        esp_timer
+        freertos
+        regulatory_compliance
+)

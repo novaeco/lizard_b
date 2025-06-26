@@ -1,0 +1,14 @@
+idf_component_register(
+    SRCS 
+        "stock_manager.c"
+        "inventory_database.c"
+        "supplier_manager.c"
+        "alert_manager.c"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        nvs_flash
+        json
+        esp_timer
+        freertos
+)

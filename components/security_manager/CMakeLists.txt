@@ -1,0 +1,15 @@
+idf_component_register(
+    SRCS 
+        "security_manager.c"
+        "user_management.c"
+        "session_manager.c"
+        "encryption.c"
+        "audit_log.c"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        nvs_flash
+        mbedtls
+        esp_timer
+        freertos
+)

@@ -1,0 +1,15 @@
+idf_component_register(
+    SRCS 
+        "regulatory_compliance.c"
+        "cites_checker.c"
+        "french_regulations.c"
+        "eu_regulations.c"
+        "document_generator.c"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        nvs_flash
+        json
+        esp_timer
+        freertos
+)

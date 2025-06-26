@@ -1,0 +1,22 @@
+idf_component_register(
+    SRCS 
+        "web_interface.c"
+        "http_handlers.c"
+        "websocket_server.c"
+        "api_endpoints.c"
+        "web_auth.c"
+    INCLUDE_DIRS 
+        "include"
+        "web"
+    REQUIRES 
+        esp_http_server
+        esp_https_server
+        esp_wifi
+        json
+        mbedtls
+        security_manager
+        animals_manager
+        terrarium_monitor
+        stock_manager
+        transaction_manager
+)

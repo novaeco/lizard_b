@@ -1,0 +1,16 @@
+idf_component_register(
+    SRCS 
+        "data_export.c"
+        "csv_exporter.c"
+        "json_exporter.c"
+        "pdf_generator.c"
+        "backup_manager.c"
+    INCLUDE_DIRS 
+        "include"
+    REQUIRES 
+        nvs_flash
+        fatfs
+        json
+        esp_timer
+        freertos
+)

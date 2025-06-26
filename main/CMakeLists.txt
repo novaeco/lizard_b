@@ -1,0 +1,35 @@
+idf_component_register(
+    SRCS 
+        "main.c"
+        "app_main.c"
+        "system_init.c"
+    INCLUDE_DIRS 
+        "."
+        "include"
+    REQUIRES 
+        driver
+        esp_wifi
+        esp_http_server
+        nvs_flash
+        fatfs
+        esp_psram
+        esp_timer
+        esp_system
+        freertos
+        spi_flash
+        esp_partition
+        json
+        mbedtls
+        esp_https_server
+        esp_netif
+        esp_event
+        lvgl_component
+        animals_manager
+        terrarium_monitor
+        stock_manager
+        transaction_manager
+        regulatory_compliance
+        data_export
+        web_interface
+        security_manager
+)
