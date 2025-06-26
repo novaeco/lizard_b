@@ -26,3 +26,6 @@ target_compile_definitions(${COMPONENT_LIB} PRIVATE
     LV_MEM_CUSTOM=1
     LV_TICK_CUSTOM=1
 )
+
+# Ajout du fichier de configuration LVGL
+target_include_directories(${COMPONENT_LIB} PRIVATE .)
