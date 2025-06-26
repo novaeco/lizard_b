@@ -4,6 +4,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
+#include <string.h>
+#include <inttypes.h>
 
 // Composants
 #include "lvgl_component.h"

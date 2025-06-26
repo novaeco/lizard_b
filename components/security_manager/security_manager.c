@@ -1,6 +1,7 @@
 #include "security_manager.h"
 #include "esp_log.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "SECURITY_MANAGER";
 
@@ -84,7 +85,7 @@ system_error_t security_update_user(const user_t* user)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Utilisateur mis à jour: ID=%d", user->id);
+    ESP_LOGI(TAG, "Utilisateur mis à jour: ID=%" PRIu32, user->id);
     
     return SYSTEM_OK;
 }
@@ -95,7 +96,7 @@ system_error_t security_delete_user(uint32_t user_id)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Utilisateur supprimé: ID=%d", user_id);
+    ESP_LOGI(TAG, "Utilisateur supprimé: ID=%" PRIu32, user_id);
     
     return SYSTEM_OK;
 }
@@ -136,7 +137,7 @@ system_error_t security_change_password(uint32_t user_id, const char* old_passwo
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Mot de passe changé pour utilisateur ID=%d", user_id);
+    ESP_LOGI(TAG, "Mot de passe changé pour utilisateur ID=%" PRIu32, user_id);
     
     return SYSTEM_OK;
 }
@@ -148,7 +149,7 @@ system_error_t security_log_audit(uint32_t user_id, const char* action, const ch
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Audit: User=%d, Action=%s, Resource=%s, Success=%s", 
+    ESP_LOGI(TAG, "Audit: User=%" PRIu32 ", Action=%s, Resource=%s, Success=%s", 
              user_id, action, resource, success ? "true" : "false");
     
     return SYSTEM_OK;

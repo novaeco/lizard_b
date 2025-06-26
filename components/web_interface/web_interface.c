@@ -4,7 +4,10 @@
 #include "esp_wifi.h"
 #include "esp_netif.h"
 #include "esp_event.h"
+#include "esp_timer.h"
 #include "nvs_flash.h"
+#include <string.h>
+#include <stdio.h>
 
 static const char* TAG = "WEB_INTERFACE";
 
@@ -16,7 +19,9 @@ static char g_ip_address[16] = {0};
 // Handler pour la page d'accueil
 static esp_err_t root_get_handler(httpd_req_t *req)
 {
-    const char* html_page = 
+    char html_page[4096];
+    
+    snprintf(html_page, sizeof(html_page),
         "<!DOCTYPE html>"
         "<html>"
         "<head>"
@@ -64,12 +69,15 @@ static esp_err_t root_get_handler(httpd_req_t *req)
         "<div class='card'>"
         "<h2>État du Système</h2>"
         "<p><strong>Statut:</strong> Opérationnel</p>"
-        "<p><strong>Mémoire libre:</strong> " + esp_get_free_heap_size() + " bytes</p>"
-        "<p><strong>Uptime:</strong> " + esp_timer_get_time() / 1000000 + " secondes</p>"
+        "<p><strong>Mémoire libre:</strong> %u bytes</p>"
+        "<p><strong>Uptime:</strong> %llu secondes</p>"
         "</div>"
         "</div>"
         "</body>"
-        "</html>";
+        "</html>",
+        esp_get_free_heap_size(),
+        esp_timer_get_time() / 1000000
+    );
     
     httpd_resp_set_type(req, "text/html");
     return httpd_resp_send(req, html_page, HTTPD_RESP_USE_STRLEN);
@@ -78,14 +86,20 @@ static esp_err_t root_get_handler(httpd_req_t *req)
 // Handler pour l'API status
 static esp_err_t api_status_handler(httpd_req_t *req)
 {
-    const char* json_response = 
+    char json_response[512];
+    
+    snprintf(json_response, sizeof(json_response),
         "{"
         "\"status\": \"ok\","
         "\"version\": \"1.0.0\","
-        "\"uptime\": " + esp_timer_get_time() / 1000000 + ","
-        "\"free_heap\": " + esp_get_free_heap_size() + ","
-        "\"wifi_connected\": " + (g_wifi_connected ? "true" : "false") + ""
-        "}";
+        "\"uptime\": %llu,"
+        "\"free_heap\": %u,"
+        "\"wifi_connected\": %s"
+        "}",
+        esp_timer_get_time() / 1000000,
+        esp_get_free_heap_size(),
+        g_wifi_connected ? "true" : "false"
+    );
     
     httpd_resp_set_type(req, "application/json");
     return httpd_resp_send(req, json_response, HTTPD_RESP_USE_STRLEN);

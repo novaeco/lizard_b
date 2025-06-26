@@ -1,6 +1,7 @@
 #include "data_export.h"
 #include "esp_log.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "DATA_EXPORT";
 
@@ -32,7 +33,7 @@ system_error_t data_export_start(const export_params_t* params, uint32_t* export
     // TODO: Implémenter le démarrage d'export
     *export_id = 1;
     
-    ESP_LOGI(TAG, "Export démarré: ID=%d", *export_id);
+    ESP_LOGI(TAG, "Export démarré: ID=%" PRIu32, *export_id);
     
     return SYSTEM_OK;
 }
@@ -57,7 +58,7 @@ system_error_t data_export_cancel(uint32_t export_id)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Export annulé: ID=%d", export_id);
+    ESP_LOGI(TAG, "Export annulé: ID=%" PRIu32, export_id);
     
     return SYSTEM_OK;
 }
@@ -126,7 +127,7 @@ system_error_t data_export_create_backup(const char* backup_path, bool compress,
     // TODO: Implémenter la création de sauvegarde
     *backup_id = 1;
     
-    ESP_LOGI(TAG, "Sauvegarde créée: ID=%d, Chemin=%s", *backup_id, backup_path);
+    ESP_LOGI(TAG, "Sauvegarde créée: ID=%" PRIu32 ", Chemin=%s", *backup_id, backup_path);
     
     return SYSTEM_OK;
 }
@@ -162,7 +163,7 @@ system_error_t data_export_delete_backup(uint32_t backup_id)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Sauvegarde supprimée: ID=%d", backup_id);
+    ESP_LOGI(TAG, "Sauvegarde supprimée: ID=%" PRIu32, backup_id);
     
     return SYSTEM_OK;
 }
@@ -185,7 +186,7 @@ system_error_t data_export_schedule_backup(uint32_t interval_hours, uint32_t max
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Sauvegarde programmée: %d heures, max %d", interval_hours, max_backups);
+    ESP_LOGI(TAG, "Sauvegarde programmée: %" PRIu32 " heures, max %" PRIu32, interval_hours, max_backups);
     
     // TODO: Implémenter la programmation
     
