@@ -1,4 +1,5 @@
 #include "lvgl_display.h"
+#include "../lvgl_conf.h"
 #include "lvgl.h"
 #include "esp_log.h"
 #include "driver/spi_master.h"

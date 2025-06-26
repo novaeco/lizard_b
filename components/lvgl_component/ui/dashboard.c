@@ -1,4 +1,5 @@
 #include "dashboard.h"
+#include "../lvgl_conf.h"
 #include "lvgl.h"
 #include "esp_log.h"
 
@@ -178,14 +179,14 @@ void dashboard_show(void)
 void dashboard_update_stats(uint32_t animals_count, uint32_t terrariums_count, uint32_t alerts_count)
 {
     if (g_animals_label) {
-        lv_label_set_text_fmt(g_animals_label, "%d", animals_count);
+        lv_label_set_text_fmt(g_animals_label, "%" PRIu32, animals_count);
     }
     
     if (g_terrariums_label) {
-        lv_label_set_text_fmt(g_terrariums_label, "%d", terrariums_count);
+        lv_label_set_text_fmt(g_terrariums_label, "%" PRIu32, terrariums_count);
     }
     
     if (g_alerts_label) {
-        lv_label_set_text_fmt(g_alerts_label, "%d", alerts_count);
+        lv_label_set_text_fmt(g_alerts_label, "%" PRIu32, alerts_count);
     }
 }

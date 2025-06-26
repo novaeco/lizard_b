@@ -1,4 +1,5 @@
 #include "lvgl_touch.h"
+#include "../lvgl_conf.h"
 #include "lvgl.h"
 #include "esp_log.h"
 #include "driver/i2c.h"
