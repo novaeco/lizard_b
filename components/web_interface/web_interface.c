@@ -8,6 +8,7 @@
 #include "nvs_flash.h"
 #include <string.h>
 #include <stdio.h>
+#include <inttypes.h>
 
 static const char* TAG = "WEB_INTERFACE";
 
@@ -69,8 +70,8 @@ static esp_err_t root_get_handler(httpd_req_t *req)
         "<div class='card'>"
         "<h2>État du Système</h2>"
         "<p><strong>Statut:</strong> Opérationnel</p>"
-        "<p><strong>Mémoire libre:</strong> %u bytes</p>"
-        "<p><strong>Uptime:</strong> %llu secondes</p>"
+        "<p><strong>Mémoire libre:</strong> %" PRIu32 " bytes</p>"
+        "<p><strong>Uptime:</strong> %" PRIu64 " secondes</p>"
         "</div>"
         "</div>"
         "</body>"
@@ -92,8 +93,8 @@ static esp_err_t api_status_handler(httpd_req_t *req)
         "{"
         "\"status\": \"ok\","
         "\"version\": \"1.0.0\","
-        "\"uptime\": %llu,"
-        "\"free_heap\": %u,"
+        "\"uptime\": %" PRIu64 ","
+        "\"free_heap\": %" PRIu32 ","
         "\"wifi_connected\": %s"
         "}",
         esp_timer_get_time() / 1000000,

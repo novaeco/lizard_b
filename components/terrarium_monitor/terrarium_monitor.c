@@ -3,6 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "TERRARIUM_MONITOR";
 
@@ -117,7 +118,7 @@ system_error_t terrarium_add(terrarium_t* terrarium)
     memcpy(&g_terrariums[g_terrariums_count], terrarium, sizeof(terrarium_t));
     g_terrariums_count++;
     
-    ESP_LOGI(TAG, "Terrarium ajouté: ID=%d, Nom=%s", terrarium->id, terrarium->name);
+    ESP_LOGI(TAG, "Terrarium ajouté: ID=%" PRIu32 ", Nom=%s", terrarium->id, terrarium->name);
     
     return SYSTEM_OK;
 }
@@ -134,7 +135,7 @@ system_error_t terrarium_update(const terrarium_t* terrarium)
             memcpy(&g_terrariums[i], terrarium, sizeof(terrarium_t));
             g_terrariums[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Terrarium mis à jour: ID=%d", terrarium->id);
+            ESP_LOGI(TAG, "Terrarium mis à jour: ID=%" PRIu32, terrarium->id);
             return SYSTEM_OK;
         }
     }
@@ -157,7 +158,7 @@ system_error_t terrarium_delete(uint32_t terrarium_id)
             }
             g_terrariums_count--;
             
-            ESP_LOGI(TAG, "Terrarium supprimé: ID=%d", terrarium_id);
+            ESP_LOGI(TAG, "Terrarium supprimé: ID=%" PRIu32, terrarium_id);
             return SYSTEM_OK;
         }
     }
@@ -204,7 +205,7 @@ system_error_t terrarium_add_sensor(uint32_t terrarium_id, const sensor_t* senso
     }
     
     // TODO: Implémenter l'ajout de capteurs
-    ESP_LOGI(TAG, "Capteur ajouté au terrarium ID=%d", terrarium_id);
+    ESP_LOGI(TAG, "Capteur ajouté au terrarium ID=%" PRIu32, terrarium_id);
     
     return SYSTEM_OK;
 }
@@ -239,7 +240,7 @@ system_error_t terrarium_acknowledge_alarm(uint32_t alarm_id)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Alarme acquittée: ID=%d", alarm_id);
+    ESP_LOGI(TAG, "Alarme acquittée: ID=%" PRIu32, alarm_id);
     
     return SYSTEM_OK;
 }
@@ -264,7 +265,7 @@ system_error_t terrarium_control_equipment(uint32_t terrarium_id, const char* eq
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Contrôle équipement terrarium ID=%d: %s = %s", 
+    ESP_LOGI(TAG, "Contrôle équipement terrarium ID=%" PRIu32 ": %s = %s", 
              terrarium_id, equipment_type, enable ? "ON" : "OFF");
     
     // TODO: Implémenter le contrôle des équipements

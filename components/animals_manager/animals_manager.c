@@ -3,6 +3,7 @@
 #include "nvs_flash.h"
 #include "nvs.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "ANIMALS_MANAGER";
 
@@ -53,7 +54,7 @@ system_error_t animals_add(animal_t* animal)
     memcpy(&g_animals[g_animals_count], animal, sizeof(animal_t));
     g_animals_count++;
     
-    ESP_LOGI(TAG, "Animal ajouté: ID=%d, Nom=%s", animal->id, animal->name);
+    ESP_LOGI(TAG, "Animal ajouté: ID=%" PRIu32 ", Nom=%s", animal->id, animal->name);
     
     // TODO: Sauvegarder dans NVS
     
@@ -72,7 +73,7 @@ system_error_t animals_update(const animal_t* animal)
             memcpy(&g_animals[i], animal, sizeof(animal_t));
             g_animals[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Animal mis à jour: ID=%d", animal->id);
+            ESP_LOGI(TAG, "Animal mis à jour: ID=%" PRIu32, animal->id);
             
             // TODO: Sauvegarder dans NVS
             
@@ -80,7 +81,7 @@ system_error_t animals_update(const animal_t* animal)
         }
     }
     
-    ESP_LOGW(TAG, "Animal non trouvé: ID=%d", animal->id);
+    ESP_LOGW(TAG, "Animal non trouvé: ID=%" PRIu32, animal->id);
     return SYSTEM_ERROR_NOT_FOUND;
 }
 
@@ -99,7 +100,7 @@ system_error_t animals_delete(uint32_t animal_id)
             }
             g_animals_count--;
             
-            ESP_LOGI(TAG, "Animal supprimé: ID=%d", animal_id);
+            ESP_LOGI(TAG, "Animal supprimé: ID=%" PRIu32, animal_id);
             
             // TODO: Sauvegarder dans NVS
             
@@ -107,7 +108,7 @@ system_error_t animals_delete(uint32_t animal_id)
         }
     }
     
-    ESP_LOGW(TAG, "Animal non trouvé pour suppression: ID=%d", animal_id);
+    ESP_LOGW(TAG, "Animal non trouvé pour suppression: ID=%" PRIu32, animal_id);
     return SYSTEM_ERROR_NOT_FOUND;
 }
 
@@ -149,7 +150,7 @@ system_error_t animals_add_event(const animal_event_t* event)
         return SYSTEM_ERROR_INVALID_PARAM;
     }
     
-    ESP_LOGI(TAG, "Événement ajouté pour animal ID=%d: %s", event->animal_id, event->event_type);
+    ESP_LOGI(TAG, "Événement ajouté pour animal ID=%" PRIu32 ": %s", event->animal_id, event->event_type);
     
     // TODO: Implémenter le stockage des événements
     
