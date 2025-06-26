@@ -12,4 +12,5 @@ idf_component_register(
         mbedtls
         esp_timer
         freertos
+        main
 )

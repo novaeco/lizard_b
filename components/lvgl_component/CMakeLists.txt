@@ -16,6 +16,7 @@ idf_component_register(
         esp_timer
         freertos
         lvgl__lvgl
+        main
 )
 
 # Configuration LVGL

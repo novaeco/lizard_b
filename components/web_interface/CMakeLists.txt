@@ -18,4 +18,5 @@ idf_component_register(
         terrarium_monitor
         stock_manager
         transaction_manager
+        main
 )

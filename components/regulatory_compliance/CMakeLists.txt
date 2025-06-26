@@ -12,4 +12,5 @@ idf_component_register(
         json
         esp_timer
         freertos
+        main
 )
