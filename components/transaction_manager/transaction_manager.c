@@ -1,6 +1,7 @@
 #include "transaction_manager.h"
 #include "esp_log.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "TRANSACTION_MANAGER";
 
@@ -49,7 +50,7 @@ system_error_t transaction_create(transaction_t* transaction)
     memcpy(&g_transactions[g_transactions_count], transaction, sizeof(transaction_t));
     g_transactions_count++;
     
-    ESP_LOGI(TAG, "Transaction créée: ID=%d, Type=%d", transaction->id, transaction->type);
+    ESP_LOGI(TAG, "Transaction créée: ID=%" PRIu32 ", Type=%d", transaction->id, transaction->type);
     
     return SYSTEM_OK;
 }
@@ -66,7 +67,7 @@ system_error_t transaction_update(const transaction_t* transaction)
             memcpy(&g_transactions[i], transaction, sizeof(transaction_t));
             g_transactions[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Transaction mise à jour: ID=%d", transaction->id);
+            ESP_LOGI(TAG, "Transaction mise à jour: ID=%" PRIu32, transaction->id);
             return SYSTEM_OK;
         }
     }
@@ -89,7 +90,7 @@ system_error_t transaction_delete(uint32_t transaction_id)
             }
             g_transactions_count--;
             
-            ESP_LOGI(TAG, "Transaction supprimée: ID=%d", transaction_id);
+            ESP_LOGI(TAG, "Transaction supprimée: ID=%" PRIu32, transaction_id);
             return SYSTEM_OK;
         }
     }
@@ -163,7 +164,7 @@ system_error_t transaction_generate_certificate(uint32_t transaction_id, const c
     certificate->is_valid = true;
     strncpy(certificate->certificate_type, certificate_type, sizeof(certificate->certificate_type) - 1);
     
-    ESP_LOGI(TAG, "Certificat généré pour transaction ID=%d", transaction_id);
+    ESP_LOGI(TAG, "Certificat généré pour transaction ID=%" PRIu32, transaction_id);
     
     return SYSTEM_OK;
 }

@@ -1,6 +1,7 @@
 #include "regulatory_compliance.h"
 #include "esp_log.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "REGULATORY_COMPLIANCE";
 
@@ -35,7 +36,7 @@ system_error_t regulatory_check_animal_compliance(uint32_t animal_id, compliance
     check->is_compliant = true;
     check->last_check = time(NULL);
     
-    ESP_LOGI(TAG, "Vérification conformité animal ID=%d", animal_id);
+    ESP_LOGI(TAG, "Vérification conformité animal ID=%" PRIu32, animal_id);
     
     return SYSTEM_OK;
 }
@@ -54,7 +55,7 @@ system_error_t regulatory_check_transaction_compliance(uint32_t transaction_id, 
         violations[0] = '\0';
     }
     
-    ESP_LOGI(TAG, "Vérification conformité transaction ID=%d", transaction_id);
+    ESP_LOGI(TAG, "Vérification conformité transaction ID=%" PRIu32, transaction_id);
     
     return SYSTEM_OK;
 }

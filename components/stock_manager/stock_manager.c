@@ -1,6 +1,7 @@
 #include "stock_manager.h"
 #include "esp_log.h"
 #include <string.h>
+#include <inttypes.h>
 
 static const char* TAG = "STOCK_MANAGER";
 
@@ -49,7 +50,7 @@ system_error_t stock_add_item(stock_item_t* item)
     memcpy(&g_stock_items[g_items_count], item, sizeof(stock_item_t));
     g_items_count++;
     
-    ESP_LOGI(TAG, "Article ajouté: ID=%d, Nom=%s", item->id, item->name);
+    ESP_LOGI(TAG, "Article ajouté: ID=%" PRIu32 ", Nom=%s", item->id, item->name);
     
     return SYSTEM_OK;
 }
@@ -66,7 +67,7 @@ system_error_t stock_update_item(const stock_item_t* item)
             memcpy(&g_stock_items[i], item, sizeof(stock_item_t));
             g_stock_items[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Article mis à jour: ID=%d", item->id);
+            ESP_LOGI(TAG, "Article mis à jour: ID=%" PRIu32, item->id);
             return SYSTEM_OK;
         }
     }
@@ -89,7 +90,7 @@ system_error_t stock_delete_item(uint32_t item_id)
             }
             g_items_count--;
             
-            ESP_LOGI(TAG, "Article supprimé: ID=%d", item_id);
+            ESP_LOGI(TAG, "Article supprimé: ID=%" PRIu32, item_id);
             return SYSTEM_OK;
         }
     }
@@ -143,7 +144,7 @@ system_error_t stock_add_quantity(uint32_t item_id, float quantity, float unit_p
             g_stock_items[i].last_restocked = time(NULL);
             g_stock_items[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Stock ajouté: ID=%d, Quantité=%.2f", item_id, quantity);
+            ESP_LOGI(TAG, "Stock ajouté: ID=%" PRIu32 ", Quantité=%.2f", item_id, quantity);
             return SYSTEM_OK;
         }
     }
@@ -164,10 +165,10 @@ system_error_t stock_remove_quantity(uint32_t item_id, float quantity, const cha
                 g_stock_items[i].current_quantity -= quantity;
                 g_stock_items[i].updated_at = time(NULL);
                 
-                ESP_LOGI(TAG, "Stock retiré: ID=%d, Quantité=%.2f", item_id, quantity);
+                ESP_LOGI(TAG, "Stock retiré: ID=%" PRIu32 ", Quantité=%.2f", item_id, quantity);
                 return SYSTEM_OK;
             } else {
-                ESP_LOGW(TAG, "Stock insuffisant: ID=%d", item_id);
+                ESP_LOGW(TAG, "Stock insuffisant: ID=%" PRIu32, item_id);
                 return SYSTEM_ERROR;
             }
         }
@@ -188,7 +189,7 @@ system_error_t stock_adjust_quantity(uint32_t item_id, float new_quantity, const
             g_stock_items[i].current_quantity = new_quantity;
             g_stock_items[i].updated_at = time(NULL);
             
-            ESP_LOGI(TAG, "Stock ajusté: ID=%d, Nouvelle quantité=%.2f", item_id, new_quantity);
+            ESP_LOGI(TAG, "Stock ajusté: ID=%" PRIu32 ", Nouvelle quantité=%.2f", item_id, new_quantity);
             return SYSTEM_OK;
         }
     }
